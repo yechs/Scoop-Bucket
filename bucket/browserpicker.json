@@ -3,7 +3,7 @@
     "description": "BrowserPicker - a smart browser selector for Windows.",
     "homepage": "https://github.com/mortenn/BrowserPicker",
     "license": "MIT",
-    "notes": "",
+    "notes": "You may want to set BrowserPicker as your default browser in Windows Settings > Apps > Default Apps > BrowserPicker.",
     "architecture": {
         "64bit": {
             "url": "https://github.com/mortenn/BrowserPicker/releases/download/v2.2.4/Portable.zip",
@@ -16,6 +16,30 @@
             "browserpicker.exe",
             "BrowserPicker"
         ]
+    ],
+    "post_install": [
+        "$exe   = \"$dir\\browserpicker.exe\"",
+        "$appId = 'BrowserPickerPortable'",
+        "# --- StartMenuInternet ---",
+        "reg add \"HKCU\\Software\\Clients\\StartMenuInternet\\$appId\" /ve /t REG_SZ /d \"BrowserPicker\" /f",
+        "reg add \"HKCU\\Software\\Clients\\StartMenuInternet\\$appId\\shell\\open\\command\" /ve /t REG_SZ /d \"`\"$exe`\" `\"%1`\"\" /f",
+        "# --- ProgIDs ---",
+        "reg add \"HKCU\\Software\\Classes\\BrowserPickerURL\" /ve /t REG_SZ /d \"URL:BrowserPicker\" /f",
+        "reg add \"HKCU\\Software\\Classes\\BrowserPickerURL\" /v \"URL Protocol\" /t REG_SZ /d \"\" /f",
+        "reg add \"HKCU\\Software\\Classes\\BrowserPickerURL\\shell\\open\\command\" /ve /t REG_SZ /d \"`\"$exe`\" `\"%1`\"\" /f",
+        "# --- Capabilities ---",
+        "reg add \"HKCU\\Software\\Clients\\StartMenuInternet\\$appId\\Capabilities\" /v ApplicationName /t REG_SZ /d \"BrowserPicker\" /f",
+        "reg add \"HKCU\\Software\\Clients\\StartMenuInternet\\$appId\\Capabilities\" /v ApplicationDescription /t REG_SZ /d \"Prompt to choose a browser for each link\" /f",
+        "reg add \"HKCU\\Software\\Clients\\StartMenuInternet\\$appId\\Capabilities\\URLAssociations\"  /v http   /t REG_SZ /d \"BrowserPickerURL\"  /f",
+        "reg add \"HKCU\\Software\\Clients\\StartMenuInternet\\$appId\\Capabilities\\URLAssociations\"  /v https  /t REG_SZ /d \"BrowserPickerURL\"  /f",
+        "# Make Windows recognize these capabilities in Default Apps",
+        "reg add \"HKCU\\Software\\RegisteredApplications\" /v $appId /t REG_SZ /d \"Software\\Clients\\StartMenuInternet\\$appId\\Capabilities\" /f"
+    ],
+    "pre_uninstall": [
+        "$appId = 'BrowserPickerPortable'",
+        "reg delete \"HKCU\\Software\\RegisteredApplications\" /v $appId /f",
+        "reg delete \"HKCU\\Software\\Clients\\StartMenuInternet\\$appId\" /f",
+        "reg delete \"HKCU\\Software\\Classes\\BrowserPickerURL\" /f"
     ],
     "checkver": {
         "github": "https://github.com/mortenn/BrowserPicker"
