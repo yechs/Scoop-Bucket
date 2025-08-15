@@ -1,0 +1,30 @@
+{
+    "version": "2.2.4",
+    "description": "BrowserPicker - a smart browser selector for Windows.",
+    "homepage": "https://github.com/mortenn/BrowserPicker",
+    "license": "MIT",
+    "notes": "",
+    "architecture": {
+        "64bit": {
+            "url": "https://github.com/mortenn/BrowserPicker/releases/download/v2.2.4/Portable.zip",
+            "hash": "0c82d380a77bc552640019d13742a86ea11175a4db58018029abd89b0e4080f0"
+        }
+    },
+    "bin": "browserpicker.exe",
+    "shortcuts": [
+        [
+            "browserpicker.exe",
+            "BrowserPicker"
+        ]
+    ],
+    "checkver": {
+        "github": "https://github.com/mortenn/BrowserPicker"
+    },
+    "autoupdate": {
+        "architecture": {
+            "64bit": {
+                "url": "https://github.com/mortenn/BrowserPicker/releases/download/v$version/Portable.zip"
+            }
+        }
+    }
+}
