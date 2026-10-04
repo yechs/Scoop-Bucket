@@ -1,0 +1,32 @@
+{
+    "version": "1.4.57.13",
+    "description": "Free and open-source robotic process automation platform",
+    "homepage": "https://openiap.io/openrpa",
+    "license": "MPL-2.0",
+    "architecture": {
+        "64bit": {
+            "url": "https://github.com/open-rpa/openrpa/releases/download/1.4.57.13/OpenRPA.msi",
+            "hash": "sha256:96ddcc22bfaca8fe3c080eba0e914c961e0921c5c3cfe48ef3d736092b208bec"
+        }
+    },
+    "extract_dir": "OpenRPA",
+    "shortcuts": [
+        [
+            "OpenRPA.exe",
+            "OpenRPA"
+        ]
+    ],
+    "checkver": {
+        "github": "https://github.com/open-rpa/openrpa"
+    },
+    "autoupdate": {
+        "architecture": {
+            "64bit": {
+                "url": "https://github.com/open-rpa/openrpa/releases/download/$version/OpenRPA.msi"
+            }
+        },
+        "hash": {
+            "mode": "download"
+        }
+    }
+}
